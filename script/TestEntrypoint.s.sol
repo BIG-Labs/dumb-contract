@@ -3,7 +3,6 @@ pragma solidity ^0.8.23;
 
 import "forge-std/console2.sol";
 import "forge-std/Script.sol";
-import "../src/AccountFactory.sol";
 import "account-abstraction/core/EntryPoint.sol";
 
 contract TestEntrypoint is Script {

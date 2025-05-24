@@ -1,66 +1,108 @@
-## Foundry
+# Smart Contract Passkeys
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+A cross-chain token bridge implementation using Account Abstraction and Teleporter for secure and efficient token transfers between different blockchain networks.
 
-Foundry consists of:
+## Overview
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+This project implements a cross-chain token bridge that allows users to:
 
-## Documentation
+- Transfer tokens between different blockchain networks
+- Execute swaps through TraderJoe DEX
+- Handle cross-chain messaging using Teleporter
+- Manage fees and collateral for cross-chain operations
 
-https://book.getfoundry.sh/
+## Features
+
+- **Cross-Chain Token Transfers**: Seamlessly transfer tokens between different blockchain networks
+- **DEX Integration**: Built-in integration with TraderJoe for token swaps
+- **Account Abstraction**: Enhanced security and user experience through ERC-4337
+- **Fee Management**: Configurable fee system with basis points
+- **Collateral Management**: Secure handling of cross-chain collateral
+
+## Prerequisites
+
+- [Foundry](https://book.getfoundry.sh/getting-started/installation)
+- Access to blockchain RPC endpoints
+
+## Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/BIG-Labs/dumb-contract
+cd dumb-contract
+```
+
+2. Install dependencies:
+
+```bash
+forge install
+```
+
+## Configuration
+
+1. Set up your environment variables:
+
+```bash
+cp .env.example .env
+```
+
+2. Configure the following in your `.env` file:
+
+- `PRIVATE_KEY`: Your deployer private key
 
 ## Usage
 
-### Build
+### Building the Contracts
 
-```shell
-$ forge build
+```bash
+forge build
 ```
 
-### Test
+### Running Tests
 
-```shell
-$ forge test
+```bash
+forge test
 ```
 
-### Format
+### Deploying
 
-```shell
-$ forge fmt
+```bash
+forge script script/DeployRouter.s.sol:DeployRouter --rpc-url <your_rpc_url> --private-key <your_private_key> --broadcast
 ```
 
-### Gas Snapshots
+### Interacting with the Contract
 
-```shell
-$ forge snapshot
+Start a cross-chain transfer:
+
+```solidity
+router.start(
+    token,
+    amount,
+    instructions,
+    receiver
+);
 ```
 
-### Anvil
+## Architecture
 
-```shell
-$ anvil
-```
+The project consists of several key components:
 
-### Deploy
+- **Router**: Main contract handling cross-chain transfers and swaps
+- **TokenHome**: Manages token transfers on the source chain
+- **TokenRemote**: Handles token reception on the destination chain
+- **Teleporter**: Handles cross-chain messaging
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
+## License
 
-### Cast
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-```shell
-$ cast <subcommand>
-```
+## Support
 
-### Help
+For support, please open an issue in the GitHub repository or contact the maintainers.
 
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+## Acknowledgments
+
+- [Foundry](https://book.getfoundry.sh/)
+- [TraderJoe](https://lfj.gg/)
+- [Teleporter](https://github.com/ava-labs/icm-contracts)
